@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInterger('author_id');
+            $table->unsignedBigInteger('author_id');
             $table->string('title');
+            $table->text('content');
             $table->timestamps();
         });
     }
