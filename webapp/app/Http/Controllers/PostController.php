@@ -19,7 +19,11 @@ class PostController extends Controller
     }
     public function store(Request $request)
     {
-        Post::create($request->all());
+        Post::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'author_id' => 1 
+        ]);
         return redirect()->route('posts.index');
     }
     public function edit($id)
