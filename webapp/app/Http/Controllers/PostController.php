@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Author;
 
 class PostController extends Controller
 {
@@ -15,7 +16,8 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('create');
+        $authors = Author::all();
+        return view('create',compact('authors'));
     }
     public function store(Request $request)
     {
@@ -29,7 +31,8 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        return view('edit',compact('post'));
+        $authors = Author::all();
+        return view('edit', compact('post', 'authors'));
     }
     public function update(Request $request,$id) 
     {

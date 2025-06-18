@@ -11,14 +11,17 @@
     <ul>
         @foreach ($posts as $post)
             <li>
-                <a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a>
-                
-                 <a href="{{ route('posts.edit',$post->id) }}">編集</a>
+                <strong>{{ $post->title }}</strong><br>
+                <p>{{ $post->content }}</p>
 
-                 <form action="{{ route('posts.destroy',$post->id) }}" method="POST" style="display:inline;">
+                <form action="{{ route('posts.edit', $post->id) }}" method="GET" style="display:inline;">
+                    <button type="submit">編集</button>
+                </form>
+
+                <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit">削除</button>
+                    <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
                 </form>
             </li>
         @endforeach

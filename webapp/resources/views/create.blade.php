@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>新規投稿作成</title>
+    <title>新規作成画面</title>
 </head>
 <body>
-    <h1>新規投稿作成</h1>
+    <h1>新規作成画面</h1>
+<form action="{{ route('posts.store') }}" method="post">
+    @csrf
+    <div>
+        タイトル
+        <input type="text" name="title">
+    </div>
 
-    <form action="{{ route('posts.store') }}" method="POST">
-        @csrf
 
-        <label for="title">タイトル</label><br>
-        <input type="text" id="title" name="title" required><br><br>
-
-        <label for="content">内容</label><br>
-        <textarea id="content" name="content" rows="5"></textarea><br><br>
-
-        <button type="submit">登録する</button>
-    </form>
-
-    <br>
-    <a href="{{ route('posts.index') }}">投稿一覧へ戻る</a>
+    <div>
+        投稿者
+        <select name="author_id" id="">
+            <option value="">選択してください</option>
+            @foreach ($authors as $author)
+                <option value="{{ $author->id }}">{{ $author->author_name }}</option>
+            @endforeach
+        </select>
+    </div>
+    <div>
+        本文
+        <textarea name="content" id="" cols="30" rows="10"></textarea>
+    </div>
+    <input type="submit">
+</form>
 </body>
 </html>
