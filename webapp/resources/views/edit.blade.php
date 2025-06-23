@@ -12,6 +12,9 @@
         <div>
             タイトル
             <input type="text" name="title" value="{{ old('title', $post->title) }}">
+            @error('title')
+                <div style="color:red;">{{ $message }}</div>
+            @enderror
         </div>
 
         <div>
@@ -19,16 +22,22 @@
             <select name="author_id">
                 <option value="">選択してください</option>
                 @foreach ($authors as $author)
-                    <option value="{{ $author->id }}" {{ $author->id == $post->author_id ? 'selected' : '' }}>
+                    <option value="{{ $author->id }}" {{ $author->id == old('author_id', $post->author_id) ? 'selected' : '' }}>
                         {{ $author->author_name }}
                     </option>
                 @endforeach
             </select>
+            @error('author_id')
+                <div style="color:red;">{{ $message }}</div>
+            @enderror
         </div>
 
         <div>
             本文
             <textarea name="content" cols="30" rows="10">{{ old('content', $post->content) }}</textarea>
+            @error('content')
+                <div style="color:red;">{{ $message }}</div>
+            @enderror
         </div>
 
         <input type="submit" value="更新">
