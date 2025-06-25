@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use App\Models\Author;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
@@ -33,11 +34,12 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
+
+        Log::info('編集画面表示: 投稿データ',['post' => $post]);
         $authors = Author::all();
         return view('edit', compact('post', 'authors'));
     }
 
-    // 更新（PostRequestを使い、$idから取得）
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
