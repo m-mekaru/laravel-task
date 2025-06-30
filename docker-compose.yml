@@ -1,0 +1,24 @@
+services:
+  apache:
+    build: ./docker/apache
+    container_name: apache
+    volumes:
+      - ./webapp:/var/www/html
+    ports:
+      - 8080:80
+    depends_on:
+      - db
+  db:
+    build: ./docker/db
+    container_name: db
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./docker/db/initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+    ports:
+      - 3306:3306
+volumes:
+  db-data:
